@@ -54,7 +54,6 @@ var app = {
             alert("Register called");
             pushNotification.register(this.successHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
         }
-        //pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"824841663931","ecb":"app.onNotificationGCM"});
     },
     // result contains any message sent from the plugin call
     successHandler: function(result) {
