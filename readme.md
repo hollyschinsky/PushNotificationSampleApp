@@ -1,3 +1,5 @@
+# Push Notification Workshop #
+
 In this tutorial you will implement push notifications in your PhoneGap application. You will learn the following:
 
 -How to use the PushPlugin supported by PhoneGap Build
