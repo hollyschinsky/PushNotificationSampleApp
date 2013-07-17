@@ -46,7 +46,15 @@ var app = {
 
         console.log('Received Event: ' + id);
         var pushNotification = window.plugins.pushNotification;
-        pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"824841663931","ecb":"app.onNotificationGCM"});
+        if (device.platform == 'android' || device.platform == 'Android') {
+            alert("Register called");
+            pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"824841663931","ecb":"app.onNotificationGCM"});
+        }
+        else {
+            alert("Register called");
+            pushNotification.register(this.successHandler,this.errorHandler,{"badge":"true","sound":"true","alert":"true","ecb":"app.onNotificationAPN"});
+        }
+        //pushNotification.register(this.successHandler, this.errorHandler,{"senderID":"824841663931","ecb":"app.onNotificationGCM"});
     },
     // result contains any message sent from the plugin call
     successHandler: function(result) {
@@ -78,6 +86,21 @@ var app = {
             default:
               alert('An unknown GCM event has occurred');
               break;
+        }
+    },
+    onNotificationAPN: function(event) {
+        var pushNotification = window.plugins.pushNotification;
+        alert("Running in JS - onNotificationAPN - Received a notification! " + event.alert);
+        
+        if (event.alert) {
+            navigator.notification.alert(event.alert);
+        }
+        if (event.badge) {
+            pushNotification.setApplicationIconBadgeNumber(this.successHandler, this.errorHandler, event.badge);
+        }
+        if (event.sound) {
+            var snd = new Media(event.sound);
+            snd.play();
         }
     }
 };
